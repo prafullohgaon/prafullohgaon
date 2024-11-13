@@ -6,9 +6,12 @@ const { connectDb } = require("./config/db"); // Import the DB connection functi
 const app = express();
 app.use(express.json());
 
-// Configure CORS to allow requests only from your frontend
+// Custom CORS configuration to allow your frontend origin
 app.use(cors({
-    origin: "https://thefoxpilot-frontend.vercel.app" // Replace this with your frontend URL
+    origin: "https://thefoxpilot-frontend.vercel.app", // Frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true // if you are using cookies with requests
 }));
 
 // Set up routes and middleware
@@ -16,6 +19,7 @@ app.get("/", (req, res) => {
     return res.status(200).send({ message: "Welcome to Ecommerce API - Node", status: true });
 });
 
+// Define all routes
 const authRouters = require("./routes/auth.route.js");
 app.use("/auth", authRouters);
 
