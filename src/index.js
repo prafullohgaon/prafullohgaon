@@ -5,7 +5,11 @@ const { connectDb } = require("./config/db"); // Import the DB connection functi
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS to allow requests only from your frontend
+app.use(cors({
+    origin: "https://thefoxpilot-frontend.vercel.app" // Replace this with your frontend URL
+}));
 
 // Set up routes and middleware
 app.get("/", (req, res) => {
